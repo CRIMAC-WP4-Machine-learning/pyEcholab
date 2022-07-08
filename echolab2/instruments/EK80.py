@@ -794,6 +794,9 @@ class EK80(object):
 
         #  update the ping counter
         if new_datagram['type'].startswith('RAW'):
+            if not new_datagram.__contains__('channel_id'):
+                new_datagram['channel_id'] = self.channel_ids[new_datagram['channel']-1]
+
             if self._this_ping_time != new_datagram['timestamp']:
                 self.n_pings += 1
                 self._this_ping_time = new_datagram['timestamp']

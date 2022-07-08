@@ -1008,13 +1008,16 @@ class SimradXMLParser(_SimradDatagramParser):
                     #  add the data to the environment dict
                     dict_to_dict(env_xml, data['environment'], self.environment_xml_map)
 
+                data['environment']['transducer_name'] = 'Unknown'
+                data['environment']['transducer_sound_speed'] = float(env_xml['SoundSpeed'])
+
                 #  add the xdcr environment data
-                data['environment']['transducer_name'] = []
-                data['environment']['transducer_sound_speed'] = []
-                for h in root_node.iter('Transducer'):
-                    transducer_xml = h.attrib
-                    data['environment']['transducer_name'].append(transducer_xml['TransducerName'])
-                    data['environment']['transducer_sound_speed'].append(float(transducer_xml['SoundSpeed']))
+                #data['environment']['transducer_name'] = []
+                #data['environment']['transducer_sound_speed'] = []
+                #for h in root_node.iter('Transducer'):
+                    #transducer_xml = h.attrib
+                    #data['environment']['transducer_name'].append(transducer_xml['TransducerName'])
+                    #data['environment']['transducer_sound_speed'].append(float(transducer_xml['SoundSpeed']))
 
         return data
 

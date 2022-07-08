@@ -273,6 +273,8 @@ class RawSimradFile(BufferedReader):
             e.message = 'Short read while getting raw file datagram header'
             raise e
 
+        #print(header)
+
         #  basic sanity check on size
         if header['size'] < 16:
             #  size can't be smaller than the header size
@@ -300,6 +302,11 @@ class RawSimradFile(BufferedReader):
         if bytes_read < header['size']:
             log.warning('Datagram %d (@%d) shorter than expected length:  %d < %d', self.tell(),
                         old_file_pos, bytes_read, header['size'])
+            self._find_next_datagram()
+            return self._read_next_dgram()
+
+        if header['type'] == 'CDS0':
+            log.warning('skipping CDS0 datagram')
             self._find_next_datagram()
             return self._read_next_dgram()
 
