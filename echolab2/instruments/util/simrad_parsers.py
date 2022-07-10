@@ -1498,6 +1498,7 @@ class SimradConfigParser(_SimradDatagramParser):
         header_data = {}
         common_params = {}
 
+        #print(raw_string)
         round6 = lambda x: round(x, ndigits=6)
         header_values = struct.unpack(self.header_fmt(version), raw_string[:self.header_size(version)])
 
@@ -1559,7 +1560,9 @@ class SimradConfigParser(_SimradDatagramParser):
                 txcvr_header_values = list(txcvr_header_values_encoded)
                 for tx_idx, tx_val in enumerate(txcvr_header_values_encoded):
                     if isinstance(tx_val, bytes):
-                        txcvr_header_values[tx_idx] = tx_val.decode()
+                        #print(tx_val)
+                        txcvr_header_values[tx_idx] = tx_val.decode(errors='replace')
+                        #print(txcvr_header_values[tx_idx])
 
                 channel_id = txcvr_header_values[0].strip('\x00')
                 txcvr = data['configuration'].setdefault(channel_id, {})
