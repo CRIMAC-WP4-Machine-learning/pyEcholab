@@ -3047,8 +3047,8 @@ class raw_data(ping_data):
             # Calculate the thickness of samples with this sound speed.
             thickness = sample_interval * sound_speed / 2.0
             # Calculate the range vector.
-            #range = (np.arange(0, num_samples) + sample_offset) * thickness
-            range = (np.arange(-1, num_samples-1) + sample_offset) * thickness
+            range = (np.arange(0, num_samples) + sample_offset) * thickness
+            #range = (np.arange(-1, num_samples-1) + sample_offset) * thickness
 
             return range
 
